@@ -52,3 +52,8 @@ with open("model_results.txt", "w") as f:
         f.write(f"  {feat}: {coef:.4f}\n")
 
 print("\nSaved results to model_results.txt")
+
+import joblib
+
+joblib.dump(model, "trained_model.pkl")
+print("Saved trained model to trained_model.pkl")

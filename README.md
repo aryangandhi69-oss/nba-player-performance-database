@@ -15,6 +15,15 @@ I have a background in sports analytics but limited professional experience with
 - **SQLAlchemy** — database connection and query execution
 - **SQL** — joins, aggregations, window functions, CTEs
 
+## Interactive dashboard
+
+A Streamlit app for exploring any player's season performance live, including their rolling 10-game average, hot/cold status versus their season norm, and a full season scoring chart.
+
+Run locally with:
+\`\`\`bash
+streamlit run streamlit_app.py
+\`\`\`
+
 ## Data
 
 Pulled directly from the NBA's official stats API (`nba_api`) for the 2023-24 season:
