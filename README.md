@@ -21,7 +21,7 @@ A Streamlit app for exploring any player's season performance live, including th
 
 Run locally with:
 \`\`\`bash
-streamlit run streamlit_app.py
+python -m streamlit run streamlit_app.py
 \`\`\`
 
 ## Data

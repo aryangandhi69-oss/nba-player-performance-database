@@ -5,7 +5,8 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 
 load_dotenv()
-engine = create_engine(os.getenv("DATABASE_URL"))
+db_url = os.getenv("DATABASE_URL") or st.secrets.get("DATABASE_URL")
+engine = create_engine(db_url)
 
 st.set_page_config(page_title="NBA Player Performance Explorer", layout="centered")
 st.title("NBA Player Performance Explorer")
