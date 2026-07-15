@@ -1,0 +1,6 @@
+# Add Python packages here, one per line
+nba_api
+pandas
+psycopg2-binary
+sqlalchemy
+python-dotenv
