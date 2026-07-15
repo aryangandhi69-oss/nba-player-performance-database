@@ -1,0 +1,23 @@
+Train set: 22662 rows, up to 2024-03-23
+Test set: 5553 rows, after 2024-03-23
+
+Accuracy: 0.563
+AUC: 0.559
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.59      0.73      0.65      3124
+           1       0.50      0.35      0.41      2429
+
+    accuracy                           0.56      5553
+   macro avg       0.55      0.54      0.53      5553
+weighted avg       0.55      0.56      0.55      5553
+
+Feature importance (coefficients):
+  rolling_10_avg: -0.0422
+  season_avg_so_far: 0.0586
+  is_home: 0.0512
+  days_rest: -0.0219
+  is_back_to_back: -0.0006
+  hot_cold_diff: -0.1008

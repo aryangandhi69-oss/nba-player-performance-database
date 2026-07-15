@@ -4,3 +4,5 @@ __pycache__/
 .venv/
 venv/
 .env
+raw_player_games.csv
+model_ready_data.csv

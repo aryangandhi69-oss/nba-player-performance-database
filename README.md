@@ -61,6 +61,32 @@ Uses conditional aggregation (`CASE` inside `AVG`) to split scoring averages by 
 **Question:** How much does a player's scoring change on a back-to-back versus with normal rest?
 Uses `LAG()` to calculate days of rest between consecutive games per player, then compares scoring averages on zero rest days versus one or more days of rest. This mirrors one of the most common factors real sportsbooks use to adjust player prop lines.
 
+## Prediction model
+
+A logistic regression classifier predicting whether a player will exceed their own rolling 10-game scoring average in their next game.
+
+**Why this target instead of real sportsbook prop lines:** historical prop odds aren't freely available, so I used each player's own rolling average as a self-referenced baseline. This mirrors the actual logic behind how prop lines are set, recent player form, while being honest about the data actually available for this project.
+
+**Features used:**
+- Rolling 10-game scoring average (calculated using only prior games, no data leakage)
+- Season average to date (also using only prior games)
+- Home or away game
+- Days of rest since last game
+- Back-to-back indicator
+- Difference between recent form and season average ("hot/cold" signal)
+
+**Train/test split:** chronological, not random. Trained on the first 80% of the season by date, tested on the final 20%, so the model is only ever evaluated on games that happened after everything it was trained on. This avoids the model implicitly "seeing the future," a common mistake in sports prediction projects.
+
+**Results:**
+- Accuracy: 56.3%
+- AUC: 0.559
+
+**Honest interpretation:** this is a modest but real edge over random guessing (AUC 0.50). Predicting whether a player exceeds their own recent average is a genuinely difficult problem, since an average is by definition close to a 50/50 split point. Professional sports betting models achieve their edge using data this project doesn't have access to, injury reports, defensive matchup data, player tracking, lineup news. A single-digit AUC improvement using only box score history is a realistic, defensible result, not a shortcoming to hide.
+
+One notable pattern: the model is more confident predicting "under" than "over" (59% precision on under vs. 50% on over), which lines up with the target distribution itself (54.7% of games are unders). The strongest feature, `hot_cold_diff`, has a negative coefficient, meaning that when a player is running hot relative to their season average, the model leans toward predicting a cooldown next game, a sensible regression-to-the-mean signal the model picked up without being told to look for it.
+
+**Full results saved in `model_results.txt`.**
+
 ## What I'd build next
 
 - Extend `player_season_averages` into a materialized rollup, refreshed after each data load
