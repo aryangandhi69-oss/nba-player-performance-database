@@ -4,6 +4,9 @@ I ahve made an SQL and Python pipeline that pulls real NBA game and player data 
 
 The main purpose fo this model was to build a self-directed project to help me develop a hands-on SQL model and work on my data pipeline skills.
 
+## Live Demo
+Try the interactive dashboard here: (https://aryangandhi69-oss-nba-player-performance-d-streamlit-app-yfzylh.streamlit.app/)
+
 ## Why this project
 
 I have a background in sports analytics but limited professional experience with SQL and Python, and database design. Rather than just take a course in isolation, I built this project to learn SQL directly against a real dataset, while producing something that reflects the kind of queries a team's analytics department or a sports betting company would actually run.
