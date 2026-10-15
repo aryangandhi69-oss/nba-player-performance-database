@@ -6,6 +6,7 @@ from sqlalchemy import create_engine, text
 
 load_dotenv()
 db_url = os.getenv("DATABASE_URL") or st.secrets.get("DATABASE_URL")
+db_url = db_url.replace("postgresql://", "postgresql+psycopg2://", 1)
 engine = create_engine(db_url)
 
 st.set_page_config(page_title="NBA Player Performance Explorer", layout="centered")
