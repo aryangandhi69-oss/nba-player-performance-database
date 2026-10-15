@@ -73,6 +73,19 @@ Uses conditional aggregation (`CASE` inside `AVG`) to split scoring averages by 
 **Question:** How much does a player's scoring change on a back-to-back versus with normal rest?
 Uses `LAG()` to calculate days of rest between consecutive games per player, then compares scoring averages on zero rest days versus one or more days of rest. This mirrors one of the most common factors real sportsbooks use to adjust player prop lines.
 
+## dbt transformation layer
+
+The flagship SQL logic is also rebuilt as a dbt project (`nba_dbt/`) on top of the same Supabase Postgres database.
+
+- **Sources:** the raw tables written by the Python pipeline are declared as dbt sources.
+- **Staging models:** light, view-based cleanup layer, one per raw table.
+- **Marts:** `player_rolling_form` (10 game rolling average vs season average) and `player_rest_days` (back to back scoring effect), rebuilt from the original SQL files using `ref()`.
+- **Tests:** 13 automated checks (not null, unique, and relationship tests) across primary and foreign keys. All pass.
+
+![dbt lineage graph](lineage.png)
+
+Run it with `dbt run` and `dbt test` from the `nba_dbt/` folder. The connection profile lives outside the repo, so credentials are never committed.
+
 ## Prediction model
 
 A logistic regression classifier predicting whether a player will exceed their own rolling 10-game scoring average in their next game.
