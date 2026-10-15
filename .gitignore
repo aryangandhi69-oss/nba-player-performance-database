@@ -6,3 +6,10 @@ venv/
 .env
 raw_player_games.csv
 model_ready_data.csv
+logs/
+target/
+dbt_packages/
+
+logs/
+target/
+dbt_packages/

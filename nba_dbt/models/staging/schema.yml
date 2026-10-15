@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: stg_teams
+    description: "One row per NBA team."
+    columns:
+      - name: team_id
+        description: "Primary key for teams."
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_players
+    description: "One row per player, linked to a team."
+    columns:
+      - name: player_id
+        description: "Primary key for players."
+        tests:
+          - not_null
+          - unique
+      - name: team_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_teams')
+                field: team_id
+
+  - name: stg_games
+    description: "One row per game, with home and away teams and final scores."
+    columns:
+      - name: game_id
+        description: "Primary key for games."
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_player_game_stats
+    description: "One row per player per game, from the box score."
+    columns:
+      - name: stat_id
+        description: "Primary key for stat lines."
+        tests:
+          - not_null
+          - unique
+      - name: game_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_games')
+                field: game_id
+      - name: player_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_players')
+                field: player_id
